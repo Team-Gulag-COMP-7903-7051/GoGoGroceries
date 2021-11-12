@@ -10,6 +10,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ItemsAdapter extends ArrayAdapter<Item> {
+    private final ArrayList<Item> _items = new ArrayList<>();
+
     public ItemsAdapter(Context context, ArrayList<Item> items) {
         super(context, R.layout.list_item, items);
     }

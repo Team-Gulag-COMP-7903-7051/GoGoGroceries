@@ -1,48 +1,44 @@
 package com.comp7082.gogogroceries;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ListView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
-    ListView itemsListView;
-    ArrayList<Item> items = new ArrayList<>();
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+    private final ArrayList<Item> _items = new ArrayList<>();
+    private HomeFragment _homeFragment;
+    private BottomNavigationView _bottomNavView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tempData(); // Load test data into array list
-        itemsListView = findViewById(R.id.lvItemsList);
-        ItemsAdapter adapter = new ItemsAdapter(this, items);
+        _homeFragment = new HomeFragment();
+        _bottomNavView = findViewById(R.id.bottomNavView);
 
-        itemsListView.setAdapter(adapter);
+        _bottomNavView.setOnNavigationItemSelectedListener(this);
+        _bottomNavView.setSelectedItemId(R.id.home);
     }
 
-    /**
-     * FOR TESTING ONLY.
-     */
-    private void tempData() {
-        Item item1 = new Item("Apple",
-                    Category.FRUIT,
-                    new Date(),
-                    false,
-                    "Gala"
-                );
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        final int home = R.id.home;
 
-        Item item2 = new Item("Banana",
-                Category.FRUIT,
-                new Date(),
-                true,
-                "banoonoo"
-        );
-
-        items.add(item1);
-        items.add(item2);
+        if (item.getItemId() == home) {
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.flFragment, _homeFragment).commit();
+            return true;
+        }
+        return false;
     }
 }
