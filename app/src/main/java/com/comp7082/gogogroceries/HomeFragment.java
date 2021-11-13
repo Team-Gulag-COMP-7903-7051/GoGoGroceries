@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,11 +37,34 @@ public class HomeFragment extends Fragment {
         tempData(); // Load test data into array list
         ListView itemsListView = view.findViewById(R.id.lvItemsList);
 
+        // Set behaviour for when item in the list is clicked
+        itemsListView.setOnItemClickListener((adapterView, view1, pos, id) -> {
+            Item item = (Item) adapterView.getItemAtPosition(pos);
+            updateItemDetailView(view, item);
+        });
+
+        // Display first item in the list by default
+        if (_items.size() > 0) {
+            updateItemDetailView(view, _items.get(0));
+        }
+
         ItemsAdapter adapter = new ItemsAdapter(getActivity(), _items);
         itemsListView.setAdapter(adapter);
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void updateItemDetailView(View view, Item item) {
+        TextView tvName = view.findViewById(R.id.tvItemNameDetail);
+        TextView tvCat = view.findViewById(R.id.tvItemCategoryDetail);
+        TextView tvExpiry = view.findViewById(R.id.tvItemExpiryDetail);
+        TextView tvNote = view.findViewById(R.id.tvItemNoteDetail);
+
+        tvName.setText(item.getName());
+        tvCat.setText(item.getCategory().toString());
+        tvExpiry.setText(item.getExpiryDate().toString());
+        tvNote.setText(item.getNote());
     }
 
     /**
