@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,10 +26,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         _bottomNavView.setOnNavigationItemSelectedListener(this);
         _bottomNavView.setSelectedItemId(R.id.home);
 
-        // FAB onClick event
         FloatingActionButton addItemFAB = findViewById(R.id.addItemFAB);
+        FloatingActionButton confirmItemFAB = findViewById(R.id.confirmItemFAB);
+
+        // Add Item FAB onClick event
         addItemFAB.setOnClickListener(v -> {
             getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, editFrag).commit();
+
+            // Swap Visibility of FABs
+            addItemFAB.setVisibility(View.GONE);
+            confirmItemFAB.setVisibility(View.VISIBLE);
+        });
+
+        // FAB onClick event for Confirming Item
+        confirmItemFAB.setOnClickListener(v -> {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, _homeFragment).commit();
+
+            // Swap Visibility of FABs
+            confirmItemFAB.setVisibility(View.GONE);
+            addItemFAB.setVisibility(View.VISIBLE);
+
+            // Add item to _items List here.
         });
     }
 
@@ -40,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (item.getItemId() == home) {
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.flFragment, _homeFragment).commit();
+            findViewById(R.id.confirmItemFAB).setVisibility(View.GONE);
+            findViewById(R.id.addItemFAB).setVisibility(View.VISIBLE);
             return true;
         }
         return false;

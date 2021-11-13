@@ -7,4 +7,7 @@
     <string name="item_img_desc">Item Placeholder Image</string>
     <string name="add_item_button">add item button</string>
     <string name="reoccurring_item">Auto-Add? %1$s</string>
+    <string name="item_name_hint">Item Name</string>
+    <string name="item_notes_hint">Notes</string>
+    <string name="edit_reoccurring_label">Automatically Re-Add to List</string>
 </resources>
