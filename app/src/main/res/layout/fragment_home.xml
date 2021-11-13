@@ -1,79 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment">
 
-    <RelativeLayout
-        android:id="@+id/detailsContainer"
-        android:layout_width="match_parent"
+    <include layout="@layout/content_home"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginVertical="@dimen/app_vertical_margin"
-        android:layout_marginHorizontal="@dimen/app_horizontal_margin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/app_horizontal_margin"
+        android:src="@drawable/ic_fab_add_item"
+        android:contentDescription="@string/add_item_button" />
 
-        <LinearLayout
-            android:id="@+id/itemDetailWrapper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentStart="true"
-            android:layout_alignEnd="@id/ivImgPlaceholder">
-            <TextView
-                android:id="@+id/tvItemNameDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textStyle="bold"
-                android:paddingTop="@dimen/app_padding"
-                />
-
-            <TextView
-                android:id="@+id/tvItemCategoryDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                />
-
-            <TextView
-                android:id="@+id/tvItemExpiryDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                />
-
-            <TextView
-                android:id="@+id/tvItemNoteDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:paddingBottom="@dimen/app_padding"
-                />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/ivImgPlaceholder"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentEnd="true"
-            android:background="@color/purple_500"
-            android:src="@drawable/ic_item_placeholder_foreground"
-            android:contentDescription="@string/item_img_desc" />
-    </RelativeLayout>
-
-    <ListView
-        android:id="@+id/lvItemsList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/app_horizontal_margin"
-        android:layout_marginVertical="@dimen/app_vertical_margin"
-        app:layout_constraintTop_toBottomOf="@id/detailsContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
