@@ -37,13 +37,24 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        tempData(); // Load test data into array list
+        // REMOVE ONCE TESTING IS COMPLETED
+        if (_items.size() == 0) {
+            tempData(); // Load test data into array list
+        }
+
         ListView itemsListView = view.findViewById(R.id.lvItemsList);
 
         // Set behaviour for when item in the list is clicked
         itemsListView.setOnItemClickListener((adapterView, view1, pos, id) -> {
             Item item = (Item) adapterView.getItemAtPosition(pos);
             updateItemDetailView(view, item);
+        });
+
+        // OnLongClick, populate EditFragment with selected item info
+        itemsListView.setOnItemLongClickListener((adapterView, view1, pos, id) -> {
+            Bundle result = new Bundle();
+            result.putSerializable("bundleKey", "result");
+            return true;
         });
 
         // Display first item in the list by default
