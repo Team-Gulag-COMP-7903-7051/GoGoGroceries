@@ -28,14 +28,14 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
         // Lookup view for data population
         TextView tvName = convertView.findViewById(R.id.tvItemName);
         TextView tvCat = convertView.findViewById(R.id.tvItemCategory);
-        TextView tvExpiry = convertView.findViewById(R.id.tvItemExpiry);
-        TextView tvNote = convertView.findViewById(R.id.tvItemNote);
+//        TextView tvExpiry = convertView.findViewById(R.id.tvItemExpiry);
+//        TextView tvNote = convertView.findViewById(R.id.tvItemNote);
 
         // Insert data into the template view using the data object
         tvName.setText(item.getName());
         tvCat.setText(item.getCategory().toString());
-        tvExpiry.setText(item.getExpiryDate().toString());
-        tvNote.setText(item.getNote());
+//        tvExpiry.setText(item.getExpiryDate().toString());
+//        tvNote.setText(item.getNote());
 
         // Return the completed view
         return convertView;
