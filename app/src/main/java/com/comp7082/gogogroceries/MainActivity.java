@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
     private HomeFragment _homeFragment;
@@ -16,11 +17,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Fragments
         _homeFragment = new HomeFragment();
+        EditFragment editFrag = new EditFragment();
         BottomNavigationView _bottomNavView = findViewById(R.id.bottomNavView);
 
         _bottomNavView.setOnNavigationItemSelectedListener(this);
         _bottomNavView.setSelectedItemId(R.id.home);
+
+        // FAB onClick event
+        FloatingActionButton addItemFAB = findViewById(R.id.addItemFAB);
+        addItemFAB.setOnClickListener(v -> {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, editFrag).commit();
+        });
     }
 
     @Override

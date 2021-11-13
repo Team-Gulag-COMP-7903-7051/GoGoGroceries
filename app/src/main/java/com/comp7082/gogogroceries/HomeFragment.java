@@ -3,12 +3,15 @@ package com.comp7082.gogogroceries;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,11 +63,18 @@ public class HomeFragment extends Fragment {
         TextView tvCat = view.findViewById(R.id.tvItemCategoryDetail);
         TextView tvExpiry = view.findViewById(R.id.tvItemExpiryDetail);
         TextView tvNote = view.findViewById(R.id.tvItemNoteDetail);
+        TextView tvReoccurring = view.findViewById(R.id.tvIsReoccurringDetail);
 
         tvName.setText(item.getName());
         tvCat.setText(item.getCategory().toString());
         tvExpiry.setText(item.getExpiryDate().toString());
         tvNote.setText(item.getNote());
+
+        String isReoccurringText = item.getIsReoccurring() ?
+                String.format(getString(R.string.reoccurring_item), "✅") :
+                String.format(getString(R.string.reoccurring_item), "❌");
+
+        tvReoccurring.setText(isReoccurringText);
     }
 
     /**
@@ -74,18 +84,42 @@ public class HomeFragment extends Fragment {
         Item item1 = new Item("Apple",
                 Category.FRUIT,
                 new Date(),
-                false,
+                true,
                 "Gala"
         );
 
         Item item2 = new Item("Banana",
                 Category.FRUIT,
                 new Date(),
-                true,
+                false,
                 "banoonoo"
+        );
+
+        Item item3 = new Item("Chocolate",
+                Category.MISCELLANEOUS,
+                new Date(),
+                true,
+                "dark chocolate is best"
+        );
+
+        Item item4 = new Item("Chocolate Milk",
+                Category.DAIRY,
+                new Date(),
+                true,
+                "choco > !choco"
+        );
+
+        Item item5 = new Item("Meat",
+                Category.MEAT,
+                new Date(),
+                false,
+                "nuf said"
         );
 
         _items.add(item1);
         _items.add(item2);
+        _items.add(item3);
+        _items.add(item4);
+        _items.add(item5);
     }
 }
