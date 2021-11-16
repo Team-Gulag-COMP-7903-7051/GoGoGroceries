@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public class UserData {
     private static UserData instance = null;
 
-    private final ArrayList<Item> _items;
+    private ArrayList<Item> _items;
 
     private UserData() {
         _items = new ArrayList<>();
-        // TODO: Get data from phone storage if it exists, then add to the list.
+
     }
 
     public static UserData getInstance() {
@@ -21,6 +21,10 @@ public class UserData {
         }
 
         return instance;
+    }
+
+    public void setItemsList(ArrayList<Item> list) {
+        _items = list;
     }
 
     public ArrayList<Item> itemsList() {
