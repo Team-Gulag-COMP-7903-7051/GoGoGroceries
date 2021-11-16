@@ -2,6 +2,8 @@ package com.comp7082.gogogroceries;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+    public UserData userData = UserData.getInstance();
     private HomeFragment _homeFragment;
 
     @Override
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Fragments
         _homeFragment = new HomeFragment();
-        EditFragment editFrag = new EditFragment();
+        AddFragment addFrag = new AddFragment();
         BottomNavigationView _bottomNavView = findViewById(R.id.bottomNavView);
 
         _bottomNavView.setOnNavigationItemSelectedListener(this);
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Add Item FAB onClick event
         addItemFAB.setOnClickListener(v -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, editFrag).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, addFrag).commit();
 
             // Swap Visibility of FABs
             addItemFAB.setVisibility(View.GONE);
@@ -40,15 +43,29 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // FAB onClick event for Confirming Item
         confirmItemFAB.setOnClickListener(v -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, _homeFragment).commit();
+            if (addFrag.isDataValid()) {
+                addFrag.addItem();
+                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, _homeFragment).commit();
+            }
 
             // Swap Visibility of FABs
             confirmItemFAB.setVisibility(View.GONE);
             addItemFAB.setVisibility(View.VISIBLE);
-
-            // Add item to _items List here.
         });
     }
+
+    public void replaceFragments(Fragment fragmentClass, Bundle savedInstanceState) {
+        Fragment fragment = null;
+        try {
+            //fragment = (Fragment) fragmentClass.onCreate(savedInstanceState);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flFragment, fragment).commit();
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -3,7 +3,6 @@ package com.comp7082.gogogroceries;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-
-    private final ArrayList<Item> _items = new ArrayList<>();
+    private final UserData userData = UserData.getInstance();
+//    private final ArrayList<Item> _items = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -37,8 +37,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // REMOVE ONCE TESTING IS COMPLETED
-        if (_items.size() == 0) {
+        // TODO: REMOVE ONCE TESTING IS COMPLETED
+        if (userData.itemsList().size() == 0) {
             tempData(); // Load test data into array list
         }
 
@@ -52,17 +52,25 @@ public class HomeFragment extends Fragment {
 
         // OnLongClick, populate EditFragment with selected item info
         itemsListView.setOnItemLongClickListener((adapterView, view1, pos, id) -> {
-            Bundle result = new Bundle();
-            result.putSerializable("bundleKey", "result");
+//            Bundle result = new Bundle();
+//            result.putSerializable("bundleItemKey", item);
+//            result.putInt("bundleItemIndex", pos);
+//            Fragment editFragment = new EditFragment();
+//            editFragment.setArguments(result);
+
+            Item item = (Item) adapterView.getItemAtPosition(pos);
+            Fragment editFragment = EditFragment.newInstance(item, pos);
+            getParentFragmentManager().beginTransaction().replace(R.id.flFragment, editFragment).commit();
+
             return true;
         });
 
         // Display first item in the list by default
-        if (_items.size() > 0) {
-            updateItemDetailView(view, _items.get(0));
+        if (userData.itemsList().size() > 0) {
+            updateItemDetailView(view, userData.itemsList().get(0));
         }
 
-        ItemsAdapter adapter = new ItemsAdapter(getActivity(), _items);
+        ItemsAdapter adapter = new ItemsAdapter(getActivity(), userData.itemsList());
         itemsListView.setAdapter(adapter);
 
         // Inflate the layout for this fragment
@@ -74,24 +82,35 @@ public class HomeFragment extends Fragment {
         TextView tvCat = view.findViewById(R.id.tvItemCategoryDetail);
         TextView tvExpiry = view.findViewById(R.id.tvItemExpiryDetail);
         TextView tvNote = view.findViewById(R.id.tvItemNoteDetail);
-        TextView tvReoccurring = view.findViewById(R.id.tvIsReoccurringDetail);
+        TextView tvRecurring = view.findViewById(R.id.tvIsRecurringDetail);
 
         tvName.setText(item.getName());
         tvCat.setText(item.getCategory().toString());
         tvExpiry.setText(item.getExpiryDate().toString());
         tvNote.setText(item.getNote());
 
-        String isReoccurringText = item.getIsReoccurring() ?
-                String.format(getString(R.string.reoccurring_item), "✅") :
-                String.format(getString(R.string.reoccurring_item), "❌");
+        String isReoccurringText = item.getIsRecurring() ?
+                String.format(getString(R.string.recurring_item), "✅") :
+                String.format(getString(R.string.recurring_item), "❌");
 
-        tvReoccurring.setText(isReoccurringText);
+        tvRecurring.setText(isReoccurringText);
     }
 
     /**
      * FOR TESTING ONLY.
      */
     private void tempData() {
+
+        String str_date = "11-Nov-21";
+        DateFormat formatter;
+        Date date = new Date();
+        formatter = new SimpleDateFormat("dd-MMM-yy", Locale.getDefault());
+        try {
+            date = (Date) formatter.parse(str_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Item item1 = new Item("Apple",
                 Category.FRUIT,
                 new Date(),
@@ -122,15 +141,15 @@ public class HomeFragment extends Fragment {
 
         Item item5 = new Item("Meat",
                 Category.MEAT,
-                new Date(),
+                date,
                 false,
                 "nuf said"
         );
 
-        _items.add(item1);
-        _items.add(item2);
-        _items.add(item3);
-        _items.add(item4);
-        _items.add(item5);
+        userData.itemsList().add(item1);
+        userData.itemsList().add(item2);
+        userData.itemsList().add(item3);
+        userData.itemsList().add(item4);
+        userData.itemsList().add(item5);
     }
 }
