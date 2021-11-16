@@ -7,19 +7,19 @@ public class Item implements Serializable {
     private String _name;
     private Category _category;
     private Date _expiryDate;
-    private boolean _isReoccurring;
+    private boolean _isRecurring;
     private String _note;
 
-    public Item(String name, Category cat, Date expiryDate, boolean isReoccurring, String note) {
+    public Item(String name, Category cat, Date expiryDate, boolean isRecurring, String note) {
         _name = name;
         _category = cat;
         _expiryDate = expiryDate;
-        _isReoccurring = isReoccurring;
+        _isRecurring = isRecurring;
         _note = note;
     }
 
     public void setName(String newName) {
-        _name = newName;
+        _name = (newName.trim().isEmpty()) ? _name : newName;
     }
 
     public String getName() {
@@ -47,12 +47,12 @@ public class Item implements Serializable {
 //        return _expiryDate;
 //    }
 
-    public void setReoccurring(boolean isReoccurring) {
-        _isReoccurring = isReoccurring;
+    public void setIsRecurring(boolean isReoccurring) {
+        _isRecurring = isReoccurring;
     }
 
-    public boolean getIsReoccurring() {
-        return _isReoccurring;
+    public boolean getIsRecurring() {
+        return _isRecurring;
     }
 
     public void setNote(String newNote) {

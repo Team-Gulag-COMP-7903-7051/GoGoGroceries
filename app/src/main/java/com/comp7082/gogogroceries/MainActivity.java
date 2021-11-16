@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+    public UserData userData = UserData.getInstance();
     private HomeFragment _homeFragment;
 
     @Override
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             // Add item to _items List here.
         });
     }
+
     public void replaceFragments(Fragment fragmentClass, Bundle savedInstanceState) {
         Fragment fragment = null;
         try {
