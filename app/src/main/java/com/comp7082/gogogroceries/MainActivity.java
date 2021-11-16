@@ -1,25 +1,52 @@
 package com.comp7082.gogogroceries;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
-    public UserData userData = UserData.getInstance();
+    private final UserData _userData = UserData.getInstance();
     private HomeFragment _homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Try to get data from internal storage
+        try {
+            FileInputStream fileIS = getBaseContext().openFileInput("Items");
+            ObjectInputStream objIS = new ObjectInputStream(fileIS);
+            ArrayList<Item> items = (ArrayList<Item>) objIS.readObject();
+            _userData.setItemsList(items);
+            fileIS.close();
+            objIS.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
         // Fragments
         _homeFragment = new HomeFragment();
@@ -52,6 +79,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             confirmItemFAB.setVisibility(View.GONE);
             addItemFAB.setVisibility(View.VISIBLE);
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Try to save data to internal storage
+        try {
+            FileOutputStream fileOS = getBaseContext().openFileOutput("Items", Context.MODE_PRIVATE);
+            ObjectOutputStream objOS = new ObjectOutputStream(fileOS);
+            objOS.writeObject(_userData.itemsList());
+            fileOS.close();
+            objOS.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void replaceFragments(Fragment fragmentClass, Bundle savedInstanceState) {
