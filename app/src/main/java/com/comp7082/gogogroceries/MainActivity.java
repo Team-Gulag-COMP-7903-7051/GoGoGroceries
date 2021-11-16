@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // Fragments
         _homeFragment = new HomeFragment();
         AddFragment addFrag = new AddFragment();
-        EditFragment editFrag = new EditFragment();
         BottomNavigationView _bottomNavView = findViewById(R.id.bottomNavView);
 
         _bottomNavView.setOnNavigationItemSelectedListener(this);
@@ -44,13 +43,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // FAB onClick event for Confirming Item
         confirmItemFAB.setOnClickListener(v -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, _homeFragment).commit();
+            if (addFrag.isDataValid()) {
+                addFrag.addItem();
+                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, _homeFragment).commit();
+            }
 
             // Swap Visibility of FABs
             confirmItemFAB.setVisibility(View.GONE);
             addItemFAB.setVisibility(View.VISIBLE);
-
-            // Add item to _items List here.
         });
     }
 

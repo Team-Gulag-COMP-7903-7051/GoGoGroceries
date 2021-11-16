@@ -134,7 +134,11 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
         _item.setName(itemName.getText().toString());
         _item.setIsRecurring(itemRecurring.isChecked());
         _item.setNote(itemNote.getText().toString());
-        _item.setExpiryDate(_selectedDate);
+
+        if (_selectedDate != null) {
+            // Date was changed
+            _item.setExpiryDate(_selectedDate);
+        }
 
         _userData.itemsList().set(_index, _item);   // Replace existing item with new values
     }

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".EditFragment"
+    android:id="@+id/addFragLayout"
+    tools:context=".AddFragment"
     android:layout_marginHorizontal="@dimen/app_horizontal_margin"
     android:layout_marginVertical="@dimen/app_vertical_margin">
 
@@ -61,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="@string/edit_reoccurring_label"/>
+            android:text="@string/edit_recurring_label"/>
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/editIsReoccurringSwitch"

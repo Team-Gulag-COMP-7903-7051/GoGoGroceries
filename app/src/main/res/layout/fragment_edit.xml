@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="@string/edit_reoccurring_label"/>
+            android:text="@string/edit_recurring_label"/>
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/editIsReoccurringSwitch"
