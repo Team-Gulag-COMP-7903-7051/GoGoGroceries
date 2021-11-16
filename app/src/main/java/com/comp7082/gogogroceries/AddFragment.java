@@ -1,12 +1,6 @@
 package com.comp7082.gogogroceries;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,20 +9,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
-import java.io.Console;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.Fragment;
+
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link EditFragment#newInstance} factory method to
+ * Use the {@link AddFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class AddFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,9 +32,7 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
     private String mParam1;
     private String mParam2;
 
-    private Item item;
-
-    public EditFragment() {
+    public AddFragment() {
         // Required empty public constructor
     }
 
@@ -54,8 +45,8 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
      * @return A new instance of fragment EditFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static EditFragment newInstance(String param1, String param2) {
-        EditFragment fragment = new EditFragment();
+    public static AddFragment newInstance(String param1, String param2) {
+        AddFragment fragment = new AddFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,17 +58,6 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            Serializable item = bundle.getSerializable("bundleKey");
-        }
-
-        item = (Item) bundle.getSerializable("bundleKey");
-
-        Log.d("ITEM CONTENT", String.valueOf(bundle.getSerializable("bundleKey")));
-        Log.d("ACTUAL ITEM", String.valueOf(item.getName()));
-
     }
 
     @Override
@@ -95,20 +75,6 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
         categorySpinner.setOnItemSelectedListener(this);
-
-        EditText itemName = view.findViewById(R.id.etItemName);
-        CalendarView itemCalendar = view.findViewById(R.id.editExpiryDate);;
-        SwitchCompat itemRecurring = view.findViewById(R.id.editIsReoccurringSwitch);
-        EditText itemNote = view.findViewById(R.id.etItemNotes);
-
-
-        //categorySpinner.getItemAtPosition(item.getCategory().ordinal());
-
-        categorySpinner.setSelection(item.getCategory().ordinal());
-        itemName.setText(item.getName());
-        itemCalendar.setDate(item.getExpiryDate().getTime());
-        itemRecurring.setChecked(item.getIsReoccurring());
-        itemNote.setText(item.getNote());
 
         return view;
     }

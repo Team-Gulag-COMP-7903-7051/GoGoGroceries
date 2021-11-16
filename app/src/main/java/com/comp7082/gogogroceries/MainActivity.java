@@ -2,6 +2,8 @@ package com.comp7082.gogogroceries;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Fragments
         _homeFragment = new HomeFragment();
+        AddFragment addFrag = new AddFragment();
         EditFragment editFrag = new EditFragment();
         BottomNavigationView _bottomNavView = findViewById(R.id.bottomNavView);
 
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Add Item FAB onClick event
         addItemFAB.setOnClickListener(v -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, editFrag).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, addFrag).commit();
 
             // Swap Visibility of FABs
             addItemFAB.setVisibility(View.GONE);
@@ -49,6 +52,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             // Add item to _items List here.
         });
     }
+    public void replaceFragments(Fragment fragmentClass, Bundle savedInstanceState) {
+        Fragment fragment = null;
+        try {
+            //fragment = (Fragment) fragmentClass.onCreate(savedInstanceState);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flFragment, fragment).commit();
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

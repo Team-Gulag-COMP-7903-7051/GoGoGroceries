@@ -13,6 +13,10 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,8 +56,19 @@ public class HomeFragment extends Fragment {
 
         // OnLongClick, populate EditFragment with selected item info
         itemsListView.setOnItemLongClickListener((adapterView, view1, pos, id) -> {
+//            Item item = (Item) adapterView.getItemAtPosition(pos);
+//            View updateView = inflater.inflate(R.layout.fragment_edit, container, false);
+//            editItemDetailView(updateView, item);
+
+            //((MainActivity) getActivity()).replaceFragments(EditFragment);
+
             Bundle result = new Bundle();
-            result.putSerializable("bundleKey", "result");
+            Item item = (Item) adapterView.getItemAtPosition(pos);
+            result.putSerializable("bundleKey", item);
+            Fragment editFragment = new EditFragment();
+            editFragment.setArguments(result);
+            getFragmentManager().beginTransaction().replace(R.id.flFragment, editFragment).commit();
+
             return true;
         });
 
@@ -88,10 +103,31 @@ public class HomeFragment extends Fragment {
         tvReoccurring.setText(isReoccurringText);
     }
 
+    private View editItemDetailView(View view, Item item) {
+
+        TextView tvName = view.findViewById(R.id.etItemName);
+
+        tvName.setText(item.getName());
+
+        return view;
+
+    }
+
     /**
      * FOR TESTING ONLY.
      */
     private void tempData() {
+
+        String str_date = "11-Nov-21";
+        DateFormat formatter;
+        Date date = new Date();
+        formatter = new SimpleDateFormat("dd-MMM-yy");
+        try {
+            date = (Date) formatter.parse(str_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Item item1 = new Item("Apple",
                 Category.FRUIT,
                 new Date(),
@@ -122,7 +158,7 @@ public class HomeFragment extends Fragment {
 
         Item item5 = new Item("Meat",
                 Category.MEAT,
-                new Date(),
+                date,
                 false,
                 "nuf said"
         );

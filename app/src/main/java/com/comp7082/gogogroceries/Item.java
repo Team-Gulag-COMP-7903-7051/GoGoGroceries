@@ -1,8 +1,9 @@
 package com.comp7082.gogogroceries;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Item {
+public class Item implements Serializable {
     private String _name;
     private Category _category;
     private Date _expiryDate;
@@ -40,6 +41,11 @@ public class Item {
     public Date getExpiryDate() {
         return _expiryDate;
     }
+
+//    public long getLongExpiryDate() {
+//        long longDate = _expiryDate.getTime();
+//        return _expiryDate;
+//    }
 
     public void setReoccurring(boolean isReoccurring) {
         _isReoccurring = isReoccurring;
