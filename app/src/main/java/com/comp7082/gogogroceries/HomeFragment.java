@@ -115,35 +115,40 @@ public class HomeFragment extends Fragment {
                 Category.FRUIT,
                 new Date(),
                 true,
-                "Gala"
+                "Gala",
+                1
         );
 
         Item item2 = new Item("Banana",
                 Category.FRUIT,
                 new Date(),
                 false,
-                "banoonoo"
+                "banoonoo",
+                2
         );
 
         Item item3 = new Item("Chocolate",
                 Category.MISCELLANEOUS,
                 new Date(),
                 true,
-                "dark chocolate is best"
+                "dark chocolate is best",
+                3
         );
 
         Item item4 = new Item("Chocolate Milk",
                 Category.DAIRY,
                 new Date(),
                 true,
-                "choco > !choco"
+                "choco > !choco",
+                4
         );
 
         Item item5 = new Item("Meat",
                 Category.MEAT,
                 date,
                 false,
-                "nuf said"
+                "nuf said",
+                5
         );
 
         userData.itemsList().add(item1);

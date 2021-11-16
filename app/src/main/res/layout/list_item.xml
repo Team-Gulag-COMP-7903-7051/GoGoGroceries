@@ -20,7 +20,13 @@
         android:paddingBottom="@dimen/app_padding"
         />
 
-<!--    <TextView-->
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete" />
+
+    <!--    <TextView-->
 <!--        android:id="@+id/tvItemExpiry"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->

@@ -62,4 +62,5 @@ public class Item implements Serializable {
     public String getNote() {
         return _note;
     }
+
 }

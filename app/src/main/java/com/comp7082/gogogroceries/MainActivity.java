@@ -12,18 +12,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,16 +43,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
     private final UserData _userData = UserData.getInstance();
     private HomeFragment _homeFragment;
-
-    private ListView listViewItems;
-    private ArrayList<String> items;
-    private ArrayAdapter adapter;
-    private Button addItem;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +55,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         createNotificationChannel(); // "You should execute this code as soon as your app starts" - Sun Tzu, probably
         setContentView(R.layout.activity_main);
 
-// <<<<<<< HEAD
-//         //delete list item
-//         listViewItems = (ListView)findViewById(R.id.list_item);
-//         addItem = (Button)findViewById(R.id.addItemFAB);
 
-//         items = new ArrayList<String>();
 
-//         adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1,items);
-//         listViewItems.setAdapter(adapter);
-// =======
         // Try to get data from internal storage
         try {
             FileInputStream fileIS = getBaseContext().openFileInput("Items");
