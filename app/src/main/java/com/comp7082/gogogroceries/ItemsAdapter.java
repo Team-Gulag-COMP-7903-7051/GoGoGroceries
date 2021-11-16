@@ -5,17 +5,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemsAdapter extends ArrayAdapter<Item> {
+
+
     public ItemsAdapter(Context context, ArrayList<Item> items) {
         super(context, R.layout.list_item, items);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         // Get the data for this position
         Item item = getItem(position);
 

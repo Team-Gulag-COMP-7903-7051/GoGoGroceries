@@ -19,7 +19,7 @@
         android:text=""
         android:paddingBottom="@dimen/app_padding"
         />
-    
+
 <!--    <TextView-->
 <!--        android:id="@+id/tvItemExpiry"-->
 <!--        android:layout_width="wrap_content"-->

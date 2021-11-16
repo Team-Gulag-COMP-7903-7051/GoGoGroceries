@@ -4,22 +4,44 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
     public UserData userData = UserData.getInstance();
     private HomeFragment _homeFragment;
 
+    private ListView listViewItems;
+    private ArrayList<String> items;
+    private ArrayAdapter adapter;
+    private Button addItem;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //delete list item
+        listViewItems = (ListView)findViewById(R.id.list_item);
+        addItem = (Button)findViewById(R.id.addItemFAB);
+
+        items = new ArrayList<String>();
+
+        adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1,items);
+        listViewItems.setAdapter(adapter);
 
         // Fragments
         _homeFragment = new HomeFragment();
@@ -81,4 +103,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return false;
     }
+    
 }
