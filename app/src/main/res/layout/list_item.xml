@@ -17,19 +17,4 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/app_padding"
         android:text="" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/tvItemExpiry"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text=""-->
-<!--        />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/tvItemNote"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text=""-->
-<!--        android:paddingBottom="@dimen/app_padding"-->
-<!--        />-->
 </LinearLayout>

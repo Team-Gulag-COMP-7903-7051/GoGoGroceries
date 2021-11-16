@@ -2,6 +2,7 @@ package com.comp7082.gogogroceries;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,19 +31,17 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
         // Lookup view for data population
         TextView tvName = convertView.findViewById(R.id.tvItemName);
         TextView tvCat = convertView.findViewById(R.id.tvItemCategory);
-//        TextView tvExpiry = convertView.findViewById(R.id.tvItemExpiry);
-//        TextView tvNote = convertView.findViewById(R.id.tvItemNote);
 
         // Insert data into the template view using the data object
         tvName.setText(item.getName());
         tvCat.setText(item.getCategory().toString());
 
-        if(new Date().after(item.getExpiryDate())){
+        if (new Date().after(item.getExpiryDate())) {
+            Log.d("---name", item.getName());
+            Log.d("---cat", item.getCategory().toString());
             tvName.setBackgroundColor(Color.parseColor("#45FF0000"));
             tvCat.setBackgroundColor(Color.parseColor("#45FF0000"));
         }
-//        tvExpiry.setText(item.getExpiryDate().toString());
-//        tvNote.setText(item.getNote());
 
         // Return the completed view
         return convertView;
