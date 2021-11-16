@@ -84,9 +84,12 @@ public class HomeFragment extends Fragment {
         TextView tvNote = view.findViewById(R.id.tvItemNoteDetail);
         TextView tvRecurring = view.findViewById(R.id.tvIsRecurringDetail);
 
+        String expDate = item.getExpiryDate().toString();
+        String expDateParsed = expDate.substring(0,10) + " " + expDate.substring(expDate.length() - 4, expDate.length());
+
         tvName.setText(item.getName());
         tvCat.setText(item.getCategory().toString());
-        tvExpiry.setText(item.getExpiryDate().toString());
+        tvExpiry.setText(expDateParsed);
         tvNote.setText(item.getNote());
 
         String isReoccurringText = item.getIsRecurring() ?
