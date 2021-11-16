@@ -1,5 +1,6 @@
 package com.comp7082.gogogroceries;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,8 +21,8 @@ import java.util.Locale;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    private final UserData userData = UserData.getInstance();
-//    private final ArrayList<Item> _items = new ArrayList<>();
+    private final UserData _userData = UserData.getInstance();
+    private ItemsAdapter _adapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -38,7 +39,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // TODO: REMOVE ONCE TESTING IS COMPLETED
-        if (userData.itemsList().size() == 0) {
+        if (_userData.itemsList().size() == 0) {
             tempData(); // Load test data into array list
         }
 
@@ -50,28 +51,21 @@ public class HomeFragment extends Fragment {
             updateItemDetailView(view, item);
         });
 
-        // OnLongClick, populate EditFragment with selected item info
+        // On item LongClick, open dialog for Edit or Delete
         itemsListView.setOnItemLongClickListener((adapterView, view1, pos, id) -> {
-//            Bundle result = new Bundle();
-//            result.putSerializable("bundleItemKey", item);
-//            result.putInt("bundleItemIndex", pos);
-//            Fragment editFragment = new EditFragment();
-//            editFragment.setArguments(result);
-
             Item item = (Item) adapterView.getItemAtPosition(pos);
-            Fragment editFragment = EditFragment.newInstance(item, pos);
-            getParentFragmentManager().beginTransaction().replace(R.id.flFragment, editFragment).commit();
+            showEditDeleteDialogOnLongClick(item, pos);
 
             return true;
         });
 
         // Display first item in the list by default
-        if (userData.itemsList().size() > 0) {
-            updateItemDetailView(view, userData.itemsList().get(0));
+        if (_userData.itemsList().size() > 0) {
+            updateItemDetailView(view, _userData.itemsList().get(0));
         }
 
-        ItemsAdapter adapter = new ItemsAdapter(getActivity(), userData.itemsList());
-        itemsListView.setAdapter(adapter);
+        _adapter = new ItemsAdapter(getActivity(), _userData.itemsList());
+        itemsListView.setAdapter(_adapter);
 
         // Inflate the layout for this fragment
         return view;
@@ -100,12 +94,36 @@ public class HomeFragment extends Fragment {
         tvRecurring.setText(isReoccurringText);
     }
 
+    private void showEditDeleteDialogOnLongClick(Item item, int index) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Select");
+        builder.setMessage("What would you like to do with " + item.getName() + "?");
+
+        // Cancel Dialog
+        builder.setNeutralButton("Cancel", null);
+
+        // Launch "EditFragment"
+        builder.setPositiveButton("Edit", (dialogInterface, i) -> {
+            Fragment editFragment = EditFragment.newInstance(item, index);
+            getParentFragmentManager().beginTransaction().replace(R.id.flFragment, editFragment).commit();
+        });
+
+        // Remove the item from the list
+        builder.setNegativeButton("Delete", ((dialogInterface, i) -> {
+            _userData.itemsList().remove(index);
+            _adapter.notifyDataSetChanged();
+        }));
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     /**
      * FOR TESTING ONLY.
      */
     private void tempData() {
 
-        String str_date = "11-Nov-21";
+        String str_date = "20-Nov-21";
         DateFormat formatter;
         Date date = new Date();
         formatter = new SimpleDateFormat("dd-MMM-yy", Locale.getDefault());
@@ -124,21 +142,21 @@ public class HomeFragment extends Fragment {
 
         Item item2 = new Item("Banana",
                 Category.FRUIT,
-                new Date(),
+                date,
                 false,
                 "banoonoo"
         );
 
         Item item3 = new Item("Chocolate",
                 Category.MISCELLANEOUS,
-                new Date(),
+                date,
                 true,
                 "dark chocolate is best"
         );
 
         Item item4 = new Item("Chocolate Milk",
                 Category.DAIRY,
-                new Date(),
+                date,
                 true,
                 "choco > !choco"
         );
@@ -150,10 +168,10 @@ public class HomeFragment extends Fragment {
                 "nuf said"
         );
 
-        userData.itemsList().add(item1);
-        userData.itemsList().add(item2);
-        userData.itemsList().add(item3);
-        userData.itemsList().add(item4);
-        userData.itemsList().add(item5);
+        _userData.itemsList().add(item1);
+        _userData.itemsList().add(item2);
+        _userData.itemsList().add(item3);
+        _userData.itemsList().add(item4);
+        _userData.itemsList().add(item5);
     }
 }
