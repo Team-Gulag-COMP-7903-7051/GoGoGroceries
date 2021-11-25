@@ -3,10 +3,39 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/layout/activity_main.xml" value="0.483695652173913" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/drawable-anydpi/ic_home.xml" value="0.375" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/drawable-anydpi/ic_settings.xml" value="0.5010416666666667" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.375" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/drawable/ic_add_item.xml" value="0.34427083333333336" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/drawable/ic_add_item_background.xml" value="0.34427083333333336" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/drawable/ic_add_item_foreground.xml" value="0.34427083333333336" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/drawable/ic_launcher_background.xml" value="0.375" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/layout/activity_main.xml" value="0.4676724137931034" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/layout/content_home.xml" value="0.328125" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/layout/detail_item.xml" value="0.44429347826086957" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/layout/fragment_add.xml" value="0.32135416666666666" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/layout/fragment_edit.xml" value="0.48489583333333336" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/layout/fragment_home.xml" value="0.48489583333333336" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/layout/list_item.xml" value="0.42934782608695654" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/menu/bottom_nav_menu.xml" value="0.48489583333333336" />
+        <entry key="..\:/Develop/GoGoGroceries/app/src/main/res/mipmap-anydpi-v26/ic_add_item.xml" value="0.34427083333333336" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/drawable/ic_fab_add_item.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/drawable/ic_fab_confirm_item.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/drawable/ic_home_background.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/drawable/ic_home_foreground.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/drawable/ic_item_placeholder_background.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/drawable/ic_item_placeholder_foreground.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/layout/fragment_add.xml" value="0.1598731884057971" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/layout/fragment_edit.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Mohammed/Documents/BCIT Notes/BTech Term 1/COMP 7082 (Soft Eng)/GoGoGroceries/app/src/main/res/layout/list_item.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
