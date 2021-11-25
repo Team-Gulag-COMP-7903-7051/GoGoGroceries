@@ -1,4 +1,4 @@
-package com.comp7082.gogogroceries.Models;
+package com.comp7082.gogogroceries.models;
 
 import java.util.ArrayList;
 

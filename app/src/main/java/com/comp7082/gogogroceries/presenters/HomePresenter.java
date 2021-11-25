@@ -1,8 +1,8 @@
-package com.comp7082.gogogroceries.Presenters;
+package com.comp7082.gogogroceries.presenters;
 
-import com.comp7082.gogogroceries.Models.Category;
-import com.comp7082.gogogroceries.Models.Item;
-import com.comp7082.gogogroceries.Models.UserData;
+import com.comp7082.gogogroceries.models.Category;
+import com.comp7082.gogogroceries.models.Item;
+import com.comp7082.gogogroceries.models.UserData;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,7 +27,7 @@ public class HomePresenter {
         Date date = new Date();
         formatter = new SimpleDateFormat("dd-MMM-yy", Locale.getDefault());
         try {
-            date = (Date) formatter.parse(str_date);
+            date = formatter.parse(str_date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
