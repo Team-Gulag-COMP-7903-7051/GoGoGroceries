@@ -1,4 +1,4 @@
-package com.comp7082.gogogroceries;
+package com.comp7082.gogogroceries.Views;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -11,6 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.comp7082.gogogroceries.Models.Category;
+import com.comp7082.gogogroceries.Models.Item;
+import com.comp7082.gogogroceries.Models.UserData;
+import com.comp7082.gogogroceries.Presenters.HomePresenter;
+import com.comp7082.gogogroceries.Presenters.ItemsAdapter;
+import com.comp7082.gogogroceries.R;
+import com.comp7082.gogogroceries.Views.EditFragment;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,7 +29,7 @@ import java.util.Locale;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    private final UserData _userData = UserData.getInstance();
+    private final HomePresenter _presenter = new HomePresenter();
     private ItemsAdapter _adapter;
 
     public HomeFragment() {
@@ -39,8 +47,8 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // TODO: REMOVE ONCE TESTING IS COMPLETED
-        if (_userData.itemsList().size() == 0) {
-            tempData(); // Load test data into array list
+        if (_presenter.getUserData().itemsList().size() == 0) {
+            _presenter.tempData(); // Load test data into array list
         }
 
         ListView itemsListView = view.findViewById(R.id.lvItemsList);
@@ -60,11 +68,11 @@ public class HomeFragment extends Fragment {
         });
 
         // Display first item in the list by default
-        if (_userData.itemsList().size() > 0) {
-            updateItemDetailView(view, _userData.itemsList().get(0));
+        if (_presenter.getUserData().itemsList().size() > 0) {
+            updateItemDetailView(view, _presenter.getUserData().itemsList().get(0));
         }
 
-        _adapter = new ItemsAdapter(getActivity(), _userData.itemsList());
+        _adapter = new ItemsAdapter(getActivity(), _presenter.getUserData().itemsList());
         itemsListView.setAdapter(_adapter);
 
         // Inflate the layout for this fragment
@@ -110,68 +118,11 @@ public class HomeFragment extends Fragment {
 
         // Remove the item from the list
         builder.setNegativeButton("Delete", ((dialogInterface, i) -> {
-            _userData.itemsList().remove(index);
+            _presenter.getUserData().itemsList().remove(index);
             _adapter.notifyDataSetChanged();
         }));
 
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
-
-    /**
-     * FOR TESTING ONLY.
-     */
-    private void tempData() {
-
-        String str_date = "20-Nov-21";
-        DateFormat formatter;
-        Date date = new Date();
-        formatter = new SimpleDateFormat("dd-MMM-yy", Locale.getDefault());
-        try {
-            date = (Date) formatter.parse(str_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Item item1 = new Item("Apple",
-                Category.FRUIT,
-                new Date(),
-                true,
-                "Gala"
-        );
-
-        Item item2 = new Item("Banana",
-                Category.FRUIT,
-                date,
-                false,
-                "banoonoo"
-        );
-
-        Item item3 = new Item("Chocolate",
-                Category.MISCELLANEOUS,
-                date,
-                true,
-                "dark chocolate is best"
-        );
-
-        Item item4 = new Item("Chocolate Milk",
-                Category.DAIRY,
-                date,
-                true,
-                "choco > !choco"
-        );
-
-        Item item5 = new Item("Meat",
-                Category.MEAT,
-                date,
-                false,
-                "nuf said"
-        );
-
-        _userData.itemsList().add(item1);
-        _userData.itemsList().add(item2);
-        _userData.itemsList().add(item3);
-        _userData.itemsList().add(item4);
-        _userData.itemsList().add(item5);
     }
 }

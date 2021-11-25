@@ -1,4 +1,4 @@
-package com.comp7082.gogogroceries;
+package com.comp7082.gogogroceries.Models;
 
 import java.io.Serializable;
 import java.util.Date;

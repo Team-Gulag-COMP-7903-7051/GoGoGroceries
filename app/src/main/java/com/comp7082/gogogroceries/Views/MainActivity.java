@@ -1,4 +1,4 @@
-package com.comp7082.gogogroceries;
+package com.comp7082.gogogroceries.Views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,18 +9,18 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.comp7082.gogogroceries.Models.Item;
+import com.comp7082.gogogroceries.Models.UserData;
+import com.comp7082.gogogroceries.Presenters.MainActivityPresenter;
+import com.comp7082.gogogroceries.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
-    private final UserData _userData = UserData.getInstance();
+    private final MainActivityPresenter _presenter = new MainActivityPresenter();
     private HomeFragment _homeFragment;
 
     @Override
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             FileInputStream fileIS = getBaseContext().openFileInput("Items");
             ObjectInputStream objIS = new ObjectInputStream(fileIS);
             ArrayList<Item> items = (ArrayList<Item>) objIS.readObject();
-            _userData.setItemsList(items);
+            _presenter.getUserData().setItemsList(items);
             fileIS.close();
             objIS.close();
         } catch (IOException | ClassNotFoundException e) {
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         try {
             FileOutputStream fileOS = getBaseContext().openFileOutput("Items", Context.MODE_PRIVATE);
             ObjectOutputStream objOS = new ObjectOutputStream(fileOS);
-            objOS.writeObject(_userData.itemsList());
+            objOS.writeObject(_presenter.getUserData().itemsList());
             fileOS.close();
             objOS.close();
         } catch (IOException e) {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private String getExpiredItems() {
         Date currDate = new Date();
         StringBuilder tempStr = new StringBuilder();
-        for (Item item : _userData.itemsList()) {
+        for (Item item : _presenter.getUserData().itemsList()) {
             if (currDate.getTime() >= item.getExpiryDate().getTime()) {
                 tempStr.append(item.getName()).append(",\n");
             }

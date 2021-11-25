@@ -1,4 +1,4 @@
-package com.comp7082.gogogroceries;
+package com.comp7082.gogogroceries.Views;
 
 import android.os.Bundle;
 
@@ -14,6 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.comp7082.gogogroceries.Models.Category;
+import com.comp7082.gogogroceries.Models.Item;
+import com.comp7082.gogogroceries.Models.UserData;
+import com.comp7082.gogogroceries.Presenters.EditPresenter;
+import com.comp7082.gogogroceries.R;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -31,10 +37,7 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
     private static final String ARG_ITEM_KEY = "bundleItemKey";
     private static final String ARG_ITEM_INDEX = "bundleItemIndex";
 
-    private final UserData _userData = UserData.getInstance();
-    private Item _item; // Param1; The Item retrieved after deserializing params.
-    private int _index; // Param2; The item's position in userData.itemsList();
-    private Date _selectedDate; // The user selected date in the CalendarView
+    private final EditPresenter _presenter = new EditPresenter();
 
     public EditFragment() {
         // Required empty public constructor
@@ -65,8 +68,8 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
         Bundle bundle = this.getArguments();
         
         if (bundle != null) {
-            _item = (Item) bundle.getSerializable(ARG_ITEM_KEY);
-            _index = bundle.getInt(ARG_ITEM_INDEX);
+            _presenter.setItem((Item) bundle.getSerializable(ARG_ITEM_KEY));
+            _presenter.setIndex(bundle.getInt(ARG_ITEM_INDEX));
         }
     }
 
@@ -100,14 +103,14 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            _selectedDate = date;
+            _presenter.setSelectedDate(date);
         });
 
-        categorySpinner.setSelection(_item.getCategory().ordinal());
-        itemName.setText(_item.getName());
-        itemCalendar.setDate(_item.getExpiryDate().getTime());
-        itemRecurring.setChecked(_item.getIsRecurring());
-        itemNote.setText(_item.getNote());
+        categorySpinner.setSelection(_presenter.getItem().getCategory().ordinal());
+        itemName.setText(_presenter.getItem().getName());
+        itemCalendar.setDate(_presenter.getItem().getExpiryDate().getTime());
+        itemRecurring.setChecked(_presenter.getItem().getIsRecurring());
+        itemNote.setText(_presenter.getItem().getNote());
 
         return view;
     }
@@ -117,6 +120,7 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
         super.onPause();
 
         View view = getView();
+        Item item = _presenter.getItem();
 
         if (view == null) {
             Log.d("Error", "There was an problem retrieving the view for EditFragment");
@@ -130,17 +134,18 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
         EditText itemNote = view.findViewById(R.id.etItemNotes);
 
         // Update Item values
-        _item.setCategory(itemCat);
-        _item.setName(itemName.getText().toString());
-        _item.setIsRecurring(itemRecurring.isChecked());
-        _item.setNote(itemNote.getText().toString());
+        item.setCategory(itemCat);
+        item.setName(itemName.getText().toString());
+        item.setIsRecurring(itemRecurring.isChecked());
+        item.setNote(itemNote.getText().toString());
 
-        if (_selectedDate != null) {
+        if (_presenter.getSelectedDate() != null) {
             // Date was changed
-            _item.setExpiryDate(_selectedDate);
+            item.setExpiryDate(_presenter.getSelectedDate());
         }
 
-        _userData.itemsList().set(_index, _item);   // Replace existing item with new values
+        // Replace existing item with new values
+        _presenter.getUserData().itemsList().set(_presenter.getIndex(), _presenter.getItem());
     }
 
     @Override
