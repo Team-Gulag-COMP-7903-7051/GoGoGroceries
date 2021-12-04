@@ -49,4 +49,9 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
         // Return the completed view
         return convertView;
     }
+
+    public Item getItemInformation(int position){
+        Item item = getItem(position);
+        return item;
+    }
 }
