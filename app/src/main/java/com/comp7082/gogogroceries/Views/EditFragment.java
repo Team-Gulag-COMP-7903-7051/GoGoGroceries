@@ -1,4 +1,4 @@
-package com.comp7082.gogogroceries.views;
+package com.comp7082.gogogroceries.Views;
 
 import android.os.Bundle;
 
@@ -15,9 +15,10 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.comp7082.gogogroceries.models.Category;
-import com.comp7082.gogogroceries.models.Item;
-import com.comp7082.gogogroceries.presenters.EditPresenter;
+import com.comp7082.gogogroceries.Models.Category;
+import com.comp7082.gogogroceries.Models.Item;
+import com.comp7082.gogogroceries.Models.UserData;
+import com.comp7082.gogogroceries.Presenters.EditPresenter;
 import com.comp7082.gogogroceries.R;
 
 import java.io.Serializable;
@@ -98,7 +99,7 @@ public class EditFragment extends Fragment implements AdapterView.OnItemSelected
             Date date = new Date();
             formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             try {
-                date = formatter.parse(strDate);
+                date = (Date) formatter.parse(strDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }

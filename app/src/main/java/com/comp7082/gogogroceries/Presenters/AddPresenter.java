@@ -1,6 +1,6 @@
-package com.comp7082.gogogroceries.presenters;
+package com.comp7082.gogogroceries.Presenters;
 
-import com.comp7082.gogogroceries.models.UserData;
+import com.comp7082.gogogroceries.Models.UserData;
 
 import java.util.Date;
 

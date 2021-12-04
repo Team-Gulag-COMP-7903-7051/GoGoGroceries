@@ -1,4 +1,4 @@
-package com.comp7082.gogogroceries.views;
+package com.comp7082.gogogroceries.Views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,8 +13,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.comp7082.gogogroceries.models.Item;
-import com.comp7082.gogogroceries.presenters.MainActivityPresenter;
+import com.comp7082.gogogroceries.Models.Item;
+import com.comp7082.gogogroceries.Models.UserData;
+import com.comp7082.gogogroceries.Presenters.MainActivityPresenter;
 import com.comp7082.gogogroceries.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,7 +28,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
-@SuppressWarnings("deprecation")
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
     private final MainActivityPresenter _presenter = new MainActivityPresenter();
     private HomeFragment _homeFragment;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         try {
             FileInputStream fileIS = getBaseContext().openFileInput("Items");
             ObjectInputStream objIS = new ObjectInputStream(fileIS);
-            @SuppressWarnings("unchecked") ArrayList<Item> items = (ArrayList<Item>) objIS.readObject();
+            ArrayList<Item> items = (ArrayList<Item>) objIS.readObject();
             _presenter.getUserData().setItemsList(items);
             fileIS.close();
             objIS.close();
