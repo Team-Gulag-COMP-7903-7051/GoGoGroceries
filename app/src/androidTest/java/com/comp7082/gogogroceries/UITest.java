@@ -48,7 +48,7 @@ public class UITest {
         onView(withId(R.id.confirmItemFAB)).perform(click());
 
         //Check if Item is in list and if there, click on it
-        onData(allOf(instanceOf(Item.class), itemContent(item))).perform(click());
+        onData(allOf(instanceOf(Item.class), itemContent(item))).atPosition(0).perform(click());
 
     }
 
@@ -56,12 +56,12 @@ public class UITest {
     @Test
     public void existingItem() {
         Item existingitem = new Item(
-                "Apple",
-                Category.FRUIT,
+                "Orange Juice",
+                Category.MISCELLANEOUS,
                 new Date(),
                 true,
-                "Gala"); //Existing default item information
-        onData(allOf(instanceOf(Item.class), itemContent(existingitem))).perform(click()); //Check if Item is in list
+                "Juice"); //Existing default item information
+        onData(allOf(instanceOf(Item.class), itemContent(existingitem))).atPosition(0).perform(click()); //Check if Item is in list
     }
 
     //Matcher function for ItemsAdapter which contains custom objects
