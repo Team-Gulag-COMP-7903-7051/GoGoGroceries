@@ -1,4 +1,4 @@
-package com.comp7082.gogogroceries.views;
+package com.comp7082.gogogroceries.Views;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,9 +16,10 @@ import android.widget.Toast;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
-import com.comp7082.gogogroceries.models.Category;
-import com.comp7082.gogogroceries.models.Item;
-import com.comp7082.gogogroceries.presenters.AddPresenter;
+import com.comp7082.gogogroceries.Models.Category;
+import com.comp7082.gogogroceries.Models.Item;
+import com.comp7082.gogogroceries.Models.UserData;
+import com.comp7082.gogogroceries.Presenters.AddPresenter;
 import com.comp7082.gogogroceries.R;
 
 import java.text.DateFormat;

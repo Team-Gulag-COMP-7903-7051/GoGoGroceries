@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.HomeFragment">
+    tools:context=".Views.HomeFragment">
 
     <RelativeLayout
         android:id="@+id/detailsContainer"
@@ -18,6 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
+            android:id="@+id/itemDetailWrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@id/ivImgPlaceholder"
