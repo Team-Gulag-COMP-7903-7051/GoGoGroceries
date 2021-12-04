@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 
 import com.comp7082.gogogroceries.Models.Category;
 import com.comp7082.gogogroceries.Models.Item;
-import com.comp7082.gogogroceries.Models.UserData;
 import com.comp7082.gogogroceries.Presenters.AddPresenter;
 import com.comp7082.gogogroceries.R;
 
@@ -47,10 +46,10 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_edit, container, false);
+        View view = inflater.inflate(R.layout.fragment_add, container, false);
 
         // Add listener for change to date in CalendarView
-        CalendarView itemCalendar = view.findViewById(R.id.editExpiryDate);
+        CalendarView itemCalendar = view.findViewById(R.id.addExpiryDate);
         itemCalendar.setOnDateChangeListener((calendarView, year, month, day) -> {
             String strDate = String.format(Locale.getDefault(), "%d-%d-%d", day, month+1, year);
             DateFormat formatter;
@@ -89,7 +88,7 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
 
         EditText itemName = view.findViewById(R.id.etItemName);
         Spinner categorySpinner = view.findViewById(R.id.spinnerEditCategory);
-        CalendarView itemCalendar = view.findViewById(R.id.editExpiryDate);
+        CalendarView itemCalendar = view.findViewById(R.id.addExpiryDate);
         SwitchCompat itemRecurring = view.findViewById(R.id.editIsReoccurringSwitch);
         EditText itemNote = view.findViewById(R.id.etItemNotes);
 
