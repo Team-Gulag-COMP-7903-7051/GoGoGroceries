@@ -22,7 +22,7 @@ public class DateValidator {
             valid = true;
 
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             valid = false;
         }
 
