@@ -8,10 +8,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GoGoGroceries"
-        android:fullBackupContent="@xml/backup_descriptor">
+        android:theme="@style/Theme.GoGoGroceries">
         <activity
-            android:name=".views.MainActivity"
+            android:name=".Views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
