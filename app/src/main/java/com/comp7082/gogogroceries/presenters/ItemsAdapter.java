@@ -1,4 +1,4 @@
-package com.comp7082.gogogroceries.Presenters;
+package com.comp7082.gogogroceries.presenters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.comp7082.gogogroceries.Models.Item;
+import com.comp7082.gogogroceries.models.Item;
 import com.comp7082.gogogroceries.R;
 
 import java.util.ArrayList;
