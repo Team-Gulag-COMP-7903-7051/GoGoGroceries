@@ -1,25 +1,20 @@
 package com.comp7082.gogogroceries;
 
-import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.JMock1Matchers.equalTo;
-import static org.hamcrest.Matchers.hasEntry;
 
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.comp7082.gogogroceries.Models.Category;
 import com.comp7082.gogogroceries.Models.Item;
 import com.comp7082.gogogroceries.Views.MainActivity;
 
@@ -28,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Map;
+import java.util.Date;
 
 @RunWith(AndroidJUnit4.class)
 public class UITest {
@@ -36,29 +31,53 @@ public class UITest {
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityTestRule = new ActivityScenarioRule<>(MainActivity.class);
 
-
+    //Test for adding item to list
     @Test
-    public void UITest() {
+    public void AddItem() {
+        Item item = new Item(
+                "Orange Juice",
+                Category.MISCELLANEOUS,
+                new Date(),
+                true,
+                "Juice"); //Item information to create
 
-        // Now that we have the stub in place, click on the button in our app that launches into the Camera
-        //onView(withId(R.id.snap)).perform(click());
-
+        //Perform UI operations to create Item
         onView(withId(R.id.bottomNavView)).perform(click());
         onView(withId(R.id.addItemFAB)).perform(click());
-        onView(withId(R.id.etItemName)).perform(typeText("Orange Juice"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.etItemName)).perform(typeText(item.getName()), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.confirmItemFAB)).perform(click());
-        //onView(withId(R.id.tvItemName).matches("Orange Juice"));
-        onData(allOf(is(instanceOf(Item.class)), hasEntry(equalTo("_name"), is("Orange Juice")))).perform(click());
-//        onView(withId(R.id.btnPrev)).perform(click());
-//        onView(withId(R.id.btnNext)).perform(click());
-//        onView(withId(R.id.btnSearch)).perform(click());
-//        onView(withId(R.id.etFromDateTime)).perform(replaceText("2021‐10‐00 00:00:00"), closeSoftKeyboard());
-//        onView(withId(R.id.etToDateTime)).perform(replaceText("2021‐11‐01 00:00:00"), closeSoftKeyboard());
-//        onView(withId(R.id.etKeywords)).perform(typeText("Sofa"), closeSoftKeyboard());
-//        onView(withId(R.id.go)).perform(click());
-//        onView(withId(R.id.etCaption)).check(matches(withText("Sofa")));
-//        onView(withId(R.id.btnNext)).perform(click());
-//        onView(withId(R.id.btnPrev)).perform(click());
+
+        //Check if Item is in list and if there, click on it
+        onData(allOf(instanceOf(Item.class), itemContent(item))).perform(click());
+
     }
+
+    //Test for checking existing item
+    @Test
+    public void existingItem() {
+        Item existingitem = new Item(
+                "Apple",
+                Category.FRUIT,
+                new Date(),
+                true,
+                "Gala"); //Existing default item information
+        onData(allOf(instanceOf(Item.class), itemContent(existingitem))).perform(click()); //Check if Item is in list
+    }
+
+    //Matcher function for ItemsAdapter which contains custom objects
+    public static Matcher<Object> itemContent(final Item expectedItem){
+        return new BoundedMatcher<Object, Item>(Item.class){
+            @Override
+            public boolean matchesSafely(Item myItem) {
+                return myItem.getName().equals(expectedItem.getName());
+            }
+
+            @Override
+            public void describeTo(org.hamcrest.Description description) {
+                description.appendText("with content '" + expectedItem.getName() +"'");
+            }
+        };
+    }
+
 
 }
