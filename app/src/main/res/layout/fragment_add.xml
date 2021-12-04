@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@id/ivEditImgPlaceholder" />
 
     <CalendarView
-        android:id="@+id/editExpiryDate"
+        android:id="@+id/addExpiryDate"
         android:layout_width="@dimen/calendar_dimens"
         android:layout_height="@dimen/calendar_dimens"
         app:layout_constraintTop_toBottomOf="@id/etItemName"
@@ -54,7 +54,7 @@
         android:id="@+id/editIsReoccurringContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/editExpiryDate"
+        app:layout_constraintTop_toBottomOf="@+id/addExpiryDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

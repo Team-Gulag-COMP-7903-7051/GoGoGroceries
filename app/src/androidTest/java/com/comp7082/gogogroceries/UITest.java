@@ -9,7 +9,10 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 
+import android.view.View;
+
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -19,6 +22,7 @@ import com.comp7082.gogogroceries.Models.Item;
 import com.comp7082.gogogroceries.Views.MainActivity;
 
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +49,7 @@ public class UITest {
         onView(withId(R.id.bottomNavView)).perform(click());
         onView(withId(R.id.addItemFAB)).perform(click());
         onView(withId(R.id.etItemName)).perform(typeText(item.getName()), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.etItemNotes)).perform(typeText(item.getNote()), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.confirmItemFAB)).perform(click());
 
         //Check if Item is in list and if there, click on it
@@ -54,7 +59,7 @@ public class UITest {
 
     //Test for checking existing item
     @Test
-    public void existingItem() {
+    public void ExistingItem() {
         Item existingitem = new Item(
                 "Orange Juice",
                 Category.MISCELLANEOUS,
@@ -75,6 +80,24 @@ public class UITest {
             @Override
             public void describeTo(org.hamcrest.Description description) {
                 description.appendText("with content '" + expectedItem.getName() +"'");
+            }
+        };
+    }
+
+    public static Matcher<View> withIndex(final Matcher<View> matcher, final int index) {
+        return new TypeSafeMatcher<View>() {
+            int currentIndex = 0;
+
+            @Override
+            public void describeTo(org.hamcrest.Description description) {
+                description.appendText("with index: ");
+                description.appendValue(index);
+                matcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                return matcher.matches(view) && currentIndex++ == index;
             }
         };
     }
